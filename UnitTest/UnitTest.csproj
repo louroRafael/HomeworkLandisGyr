@@ -22,4 +22,8 @@
     </PackageReference>
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\ConsoleApp\ProjetoLandisGyr.csproj" />
+  </ItemGroup>
+
 </Project>

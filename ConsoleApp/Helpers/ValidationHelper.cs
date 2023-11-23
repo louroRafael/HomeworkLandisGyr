@@ -8,7 +8,7 @@ namespace ProjetoLandisGyr.Helpers
 {
     public class ValidationHelper
     {
-        public static bool IsYesOrNo(string str) => (str == "yes" || str == "no");
+        public static bool IsYesOrNo(string str) => (str.ToLower() == "yes" || str.ToLower() == "no");
 
         public static bool IsNumber(string str) => int.TryParse(str, out _);
 
