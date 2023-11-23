@@ -3,7 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.5.33502.453
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjetoLandisGyr", "ProjetoLandisGyr.csproj", "{AC10EEF4-BB40-4D65-A892-B4616A6D3A7B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProjetoLandisGyr", "ConsoleApp/ProjetoLandisGyr.csproj", "{AC10EEF4-BB40-4D65-A892-B4616A6D3A7B}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ConsoleApp", "ConsoleApp", "{9E4B3323-56D2-4B24-AFFA-89462E01D111}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{4182E860-896E-4A71-901D-73124BA78B31}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -18,6 +22,9 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{AC10EEF4-BB40-4D65-A892-B4616A6D3A7B} = {9E4B3323-56D2-4B24-AFFA-89462E01D111}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {D430518C-8993-4FF1-AADC-E167081B4821}
