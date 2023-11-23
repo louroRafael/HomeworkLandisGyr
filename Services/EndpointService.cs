@@ -1,8 +1,6 @@
 ﻿using ProjetoLandisGyr.Enums;
 using ProjetoLandisGyr.Models;
 using ProjetoLandisGyr.Repositories;
-using System.Net;
-using System.Reflection;
 
 namespace ProjetoLandisGyr.Services
 {

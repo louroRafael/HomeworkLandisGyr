@@ -9,5 +9,7 @@ namespace ProjetoLandisGyr.Helpers
     public class ValidationHelper
     {
         public bool IsYesOrNo(string str) => (str == "yes" || str == "no");
+
+        public bool IsNumber(string str) => int.TryParse(str, out _);
     }
 }

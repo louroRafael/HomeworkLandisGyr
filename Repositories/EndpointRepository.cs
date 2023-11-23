@@ -9,6 +9,6 @@ namespace ProjetoLandisGyr.Repositories
         {
         }
 
-        public Endpoint? GetBySerial(string serial) => Query().FirstOrDefault(x => x.SerialNumber.ToLower().Equals(serial.ToLower()));
+        public Endpoint? GetBySerial(string serial) => endpoints.FirstOrDefault(x => x.SerialNumber.ToLower().Equals(serial.ToLower()));
     }
 }

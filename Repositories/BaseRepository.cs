@@ -5,7 +5,7 @@ namespace ProjetoLandisGyr.Repositories
 {
     public class BaseRepository : IBaseRepository
     {
-        private static List<Endpoint> endpoints = new List<Endpoint>();
+        protected static List<Endpoint> endpoints = new List<Endpoint>();
 
         public void Insert(Endpoint endpoint)
         {
@@ -27,7 +27,5 @@ namespace ProjetoLandisGyr.Repositories
         {
             return endpoints;
         }
-
-        public IQueryable<Endpoint> Query() => endpoints.AsQueryable();
     }
 }
