@@ -8,8 +8,18 @@ namespace ProjetoLandisGyr.Helpers
 {
     public class ValidationHelper
     {
-        public bool IsYesOrNo(string str) => (str == "yes" || str == "no");
+        public static bool IsYesOrNo(string str) => (str == "yes" || str == "no");
 
-        public bool IsNumber(string str) => int.TryParse(str, out _);
+        public static bool IsNumber(string str) => int.TryParse(str, out _);
+
+        public static bool EnumValidation<T>(string str) where T : Enum
+        {
+            if (!string.IsNullOrWhiteSpace(str))
+            {
+                var value = Convert.ToInt32(str);
+                return Enum.IsDefined(typeof(T), value);
+            }
+            return false;
+        }
     }
 }

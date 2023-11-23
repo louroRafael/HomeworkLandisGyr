@@ -20,28 +20,103 @@ namespace ProjetoLandisGyr.Views
             try
             {
                 var endpoint = new Endpoint();
+                string previousInfo = "  ### Insert a New Endpoint ###\n\n";
+                bool next = false;
 
-                Console.Clear();
-                Console.WriteLine("  ### Insert a New Endpoint ###\n\n");
+                while (!next)
+                {
+                    Console.Clear();
+                    Console.WriteLine(previousInfo);
 
-                Console.Write("Endpoint Serial Number: ");
-                endpoint.SerialNumber = Console.ReadLine();
+                    Console.Write("Endpoint Serial Number: ");
+                    var serialNumber = Console.ReadLine();
 
-                Console.WriteLine("Meter Model Id: ");
-                DisplayHelper.ShowEnumOptions<ModelId>();
-                endpoint.MeterModelId = (ModelId)Convert.ToInt32(Console.ReadLine());
+                    if(!string.IsNullOrWhiteSpace(serialNumber))
+                    {
+                        endpoint.SerialNumber = serialNumber;
+                        previousInfo += $"Endpoint Serial Number: {endpoint.SerialNumber}";
+                        next = true;
+                    }
+                }
 
-                Console.Write("Meter Number: ");
-                endpoint.MeterNumber = Convert.ToInt32(Console.ReadLine());
+                next = false;
+                while (!next)
+                {
+                    Console.Clear();
+                    Console.WriteLine(previousInfo);
 
-                Console.Write("Meter Firmware Version: ");
-                endpoint.MeterFirmwareVersion = Console.ReadLine();
+                    Console.WriteLine("Meter Model Id: ");
+                    DisplayHelper.ShowEnumOptions<ModelId>();
+                    var modelId = Console.ReadLine();
 
-                Console.WriteLine("Switch State: ");
-                DisplayHelper.ShowEnumOptions<SwitchState>();
-                endpoint.SwitchState = (SwitchState)Convert.ToInt32(Console.ReadLine());
+                    if (ValidationHelper.EnumValidation<ModelId>(modelId))
+                    {
+                        endpoint.MeterModelId = (ModelId)Convert.ToInt32(modelId); ;
+                        previousInfo += $"\nMeter Model Id: {endpoint.MeterModelId}";
+                        next = true;
+                    }
+                }
+
+                next = false;
+                while (!next)
+                {
+                    Console.Clear();
+                    Console.WriteLine(previousInfo);
+
+                    Console.Write("Meter Number: ");
+                    var meterNumber = Console.ReadLine();
+
+                    if(ValidationHelper.IsNumber(meterNumber))
+                    {
+                        endpoint.MeterNumber = Convert.ToInt32(meterNumber);
+                        previousInfo += $"\nMeter Number: {endpoint.MeterNumber}";
+                        next = true;
+                    }
+                }
+
+                next = false;
+                while (!next)
+                {
+                    Console.Clear();
+                    Console.WriteLine(previousInfo);
+
+                    Console.Write("Meter Firmware Version: ");
+                    var firmwareVersion = Console.ReadLine();
+
+                    if (!string.IsNullOrWhiteSpace(firmwareVersion))
+                    {
+                        endpoint.MeterFirmwareVersion = firmwareVersion;
+                        previousInfo += $"\nMeter Firmware Version: {endpoint.MeterFirmwareVersion}";
+                        next = true;
+                    }
+                }
+
+                next = false;
+                while (!next)
+                {
+                    Console.Clear();
+                    Console.WriteLine(previousInfo);
+
+                    Console.WriteLine("Switch State: ");
+                    DisplayHelper.ShowEnumOptions<SwitchState>();
+                    var switchState = Console.ReadLine();
+
+                    if (ValidationHelper.EnumValidation<SwitchState>(switchState))
+                    {
+                        endpoint.SwitchState = (SwitchState)Convert.ToInt32(switchState);
+                        previousInfo += $"\nSwitch State: {endpoint.SwitchState}";
+                        next = true;
+                    }
+                }
+
+                Console.WriteLine("Saving...");
 
                 _endpointService.Insert(endpoint);
+
+                Console.Clear();
+                Console.WriteLine(previousInfo);
+                Console.WriteLine("\n[Success]: Endpoint Saved Successfully!");
+                Console.ReadKey(true);
             }
             catch(Exception ex)
             {
@@ -53,18 +128,42 @@ namespace ProjetoLandisGyr.Views
         {
             try
             {
+                string previousInfo = "  ### Edit an Exist Endpoint ###\n\n";
+
                 Console.Clear();
-                Console.WriteLine("  ### Edit an Exist Endpoint ###\n\n");
+                Console.WriteLine(previousInfo);
 
                 Console.Write("Input the Endpoint Serial Number: ");
                 var serialNumber = Console.ReadLine();
 
                 if (_endpointService.EndpointExists(serialNumber))
                 {
-                    Console.Write("Input the Switch State: ");
-                    var switchState = (Enums.SwitchState)Convert.ToInt32(Console.ReadLine());
+                    previousInfo += $"Input the Endpoint Serial Number: {serialNumber}";
+                    bool isValid = false;
+                    string switchState = "";
 
-                    _endpointService.Edit(serialNumber, switchState);
+                    while(!isValid)
+                    {
+                        Console.Clear();
+                        Console.WriteLine(previousInfo);
+                        Console.Write("Input the Switch State: ");
+
+                        switchState = Console.ReadLine();
+                        if (ValidationHelper.EnumValidation<SwitchState>(switchState))
+                        {
+                            previousInfo += $"\nInput the Switch State: {(SwitchState)Convert.ToInt32(switchState)}";
+                            isValid = true;
+                        }
+                    }
+
+                    Console.WriteLine("Saving...");
+
+                    _endpointService.Edit(serialNumber, (SwitchState)Convert.ToInt32(switchState));
+
+                    Console.Clear();
+                    Console.WriteLine(previousInfo);
+                    Console.WriteLine("\n[Success]: Endpoint Edited Successfully!");
+                    Console.ReadKey(true);
                 }
                 else
                     throw new Exception("[ERROR]: No Endpoint Was Found!");
@@ -77,7 +176,6 @@ namespace ProjetoLandisGyr.Views
 
         public void DeleteEndpoint()
         {
-            var validation = new ValidationHelper();
             try
             {
                 Console.Clear();
@@ -97,7 +195,7 @@ namespace ProjetoLandisGyr.Views
 
                         var strInput = Console.ReadLine()?.ToLower();
 
-                        if (validation.IsYesOrNo(strInput))
+                        if (ValidationHelper.IsYesOrNo(strInput))
                         {
                             isValid = true;
                             if (strInput == "yes")
@@ -150,6 +248,7 @@ namespace ProjetoLandisGyr.Views
                 var serialNumber = Console.ReadLine();
 
                 Console.Clear();
+                Console.WriteLine("  ### Find an Endpoint By Serial Number ###\n\n");
                 var endpoint = _endpointService.GetBySerial(serialNumber);
 
                 DisplayHelper.ShowTableHeader<Endpoint>();

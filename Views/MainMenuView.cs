@@ -23,7 +23,6 @@ namespace ProjetoLandisGyr.Views
 
         public static bool ExitConfirmation()
         {
-            var validation = new ValidationHelper();
             string strInput;
             bool isValid = false, result = false;
 
@@ -34,7 +33,7 @@ namespace ProjetoLandisGyr.Views
 
                 strInput = Console.ReadLine()?.ToLower();
 
-                if (validation.IsYesOrNo(strInput))
+                if (ValidationHelper.IsYesOrNo(strInput))
                 {
                     isValid = true;
                     if (strInput == "yes")
